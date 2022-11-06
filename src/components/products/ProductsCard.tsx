@@ -1,12 +1,14 @@
-import Link from 'next/link'
+import type { FC } from 'react'
+import Image from 'next/image';
+
 import  { useRouter } from 'next/router';
-import React, { FC } from 'react'
+
 
 interface Props {
     nombre: string;
     image: string
     slug: string;
-    precio: string;
+    precio: number;
     descripcion: string
 }
 
@@ -27,10 +29,13 @@ export const ProductsCard:FC<Props> = ({ image, nombre, slug, descripcion, preci
         <div className="card">
             
         <div className="card-header mx-4 -mt-6">
-            <img
+            <Image
               className="w-96 rounded-lg flex justify-center mb-1"
               src={image}
               alt="tailwind-card-image"
+              width={100}
+              height={1000}
+              loading='eager'
             />
         </div>
         <div className="card-body">

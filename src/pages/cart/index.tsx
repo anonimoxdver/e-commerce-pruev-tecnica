@@ -2,19 +2,19 @@ import React from 'react'
 import { Spinner } from '../../components/ui/Spinner';
 import { Layout } from '../../layouts/MainLayout'
 import { trpc } from '../../utils/trpc';
-import { ProductProps } from '../../../Data/dataProducts';
 import { CartCard } from '../../components/cart/cartCard';
-import { useEffect } from 'react';
+import { ProductProps } from '../../../Data/dataProducts';
 
-interface Props {
-    carritoDeCompras: ProductProps
-    id: string;
-    quantity: number
-    precio: number
+
+interface CartProducts {
+  caritoDeCompras: ProductProps
+  quantity: number;
+  precio: number;
+  id: string;
 }
 
 const cartPage = () => {
-    const { data , isLoading } = trpc.carrito.getAllCarrito.useQuery();
+    const { data , isLoading } = trpc.carrito.getAllCarrito.useQuery<CartProducts>();
 
     console.log({data})
    
@@ -53,8 +53,8 @@ const cartPage = () => {
         </div>
         <p className="lg:text-4xl text-3xl font-black leading-10 text-gray-800 dark:text-white pt-3">Carrito de Compras</p>
         {
-            data!.map(( product ) => (
-                <CartCard {...product} />
+            data!.map(( product: any ) => (
+                <CartCard {...product } key={ product.id} />
             )) 
         }
      
@@ -68,10 +68,10 @@ const cartPage = () => {
               <p className="text-base leading-none text-gray-800 dark:text-white">Productos</p>
               <p className="text-base leading-none text-gray-800 dark:text-white">
                 {
-                  data?.map(({ caritoDeCompras, quantity, }) => (
-                    <div className='flex flex-row'>
-                     <p className='p-2'>{ caritoDeCompras.nombre}. </p>
-                     <p>x{ quantity} </p>
+                  data!.map((product: any ) => (
+                    <div className='flex flex-row' key={ product.caritoDeCompras!.nombre }>
+                     <p className='p-2'>{ product!.caritoDeCompras!.nombre   }. </p>
+                     <p>x{ product.quantity} </p>
                     </ div>
                    
                   ))

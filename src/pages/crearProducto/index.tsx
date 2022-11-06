@@ -1,5 +1,6 @@
 import { prisma } from '../../server/db/client';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
+
 import { useEffect, useState } from 'react';
 import { ProductProps } from '../../../Data/dataProducts';
 import { ItemCounter } from '../../components/ui/itemCounter';
@@ -7,11 +8,9 @@ import { Layout } from '../../layouts/MainLayout';
 import { useRouter } from 'next/router';
 import { trpc } from '../../utils/trpc';
 
-interface props {
-  product: any
-}
 
-const crearProducto: NextPage<props>  = ({ product } ) => {
+
+const crearProducto = ({ product }: any ) => {
   const router = useRouter()
 
   const { 0: itemProduct} = product 

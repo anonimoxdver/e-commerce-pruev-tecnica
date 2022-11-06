@@ -1,9 +1,12 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
 import { ProductsCard } from './ProductsCard';
-import {  SeedData } from '../../../Data/dataProducts';
+import { SeedData } from '../../../Data/dataProducts';
+
 
 
 export const ProductList:FC<SeedData>  = ({ products }) => {
+
+
   return (
     <div className='flex flex-wrap justify-around'>
         {

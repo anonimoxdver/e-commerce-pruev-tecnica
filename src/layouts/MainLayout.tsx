@@ -1,4 +1,4 @@
-import React, { FC }  from 'react';
+import type { FC } from 'react'
 import Head from 'next/head';
 import { Navbar } from '../components/ui/Navbar';
 

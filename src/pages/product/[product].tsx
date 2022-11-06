@@ -1,12 +1,15 @@
-import { NextPage } from 'next'
-import React, { useMemo } from 'react'
-
+import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next'
+import { NextPage } from 'next'
+import Image from 'next/image';
+
+
 import { prisma } from '../../server/db/client';
 import { SeedData, ProductProps } from '../../../Data/dataProducts';
 import { Layout } from '../../layouts/MainLayout';
 import { trpc } from '../../utils/trpc';
-import { useRouter } from 'next/router';
+
+
 
 const productPage: NextPage<SeedData> = ( {products} ) => {
 
@@ -15,8 +18,7 @@ const productPage: NextPage<SeedData> = ( {products} ) => {
   const mutationDelete = trpc.product.deleteProduct.useMutation();
   const mutationAddCarrito = trpc.carrito.createCarrito.useMutation()
 
- 
-  console.log({router})
+
   const onRouteEdit = () => {
     router.push(`/crearProducto?q=${router.query.product?.toString()}`)
   }
@@ -43,14 +45,18 @@ const productPage: NextPage<SeedData> = ( {products} ) => {
 
   return (
     <>
-      { products.map((product) => (
+      {  products.map((product) => (
         <Layout title={product.nombre}  pageDescription={product.descripcion} key={product.id} >
         <div className="min-w-screen min-h-screen flex items-center p-5 lg:p-10 overflow-hidden relative">
               <div className="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
                   <div className="md:flex items-center -mx-10">
                       <div className="w-full md:w-1/2 px-10 mb-10 md:mb-0">
                           <div className="relative">
-                              <img src={product.image} className="w-full relative z-10" alt="xd"/>
+                              <Image 
+                                              width={100}
+                                              height={1000}
+                                              loading='eager'
+                              src={product.image } className="w-full relative z-10" alt="xd"  />
                               <div className="border-4 border-yellow-200 absolute top-10 bottom-10 left-10 right-10 z-0"></div>
                           </div>
                       </div>

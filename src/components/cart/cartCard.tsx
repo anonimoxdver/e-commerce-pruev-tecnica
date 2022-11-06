@@ -1,16 +1,21 @@
-import React, { FC, useState } from 'react'
+import {   useState } from 'react'
+import type { FC } from 'react'
 import { ItemCounter } from '../ui/itemCounter'
-import { ProductProps } from '../../../Data/dataProducts';
+
 import { trpc } from '../../utils/trpc';
 import { useEffect } from 'react';
+import Image from 'next/image';
+import { ProductProps } from '../../../Data/dataProducts';
+
 
 interface Props {
-    caritoDeCompras: ProductProps
-    id: string;
-    precio: number
+  caritoDeCompras: ProductProps
+  id: string;
+  precio: number
 }
 
-export const CartCard: FC<Props> = ({ caritoDeCompras, id, precio}) => {
+
+export const CartCard:FC<Props>= ({ caritoDeCompras, id, precio}) => {
 
     const mutationUpdate = trpc.carrito.updateNumberOfQuantityOfProducts.useMutation();
 
@@ -28,14 +33,18 @@ export const CartCard: FC<Props> = ({ caritoDeCompras, id, precio}) => {
 
     useEffect(() => {
         mutationUpdate.mutate({id: id, quantity: cantidadxd.inventario })
-    }, [cantidadxd, setTempProduct])
+    }, [cantidadxd, setTempProduct, id, mutationUpdate])
     
 
   return (
 
         <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50" key={id}>
         <div className="md:w-4/12 2xl:w-1/1 w-full">
-            <img src={ caritoDeCompras.image } alt="Black Leather Bag" className="h-auto object-center object-cover " />
+            <Image 
+              width={1000}
+              height={1000}
+              loading='eager' 
+              src={ caritoDeCompras.image } alt="Black Leather Bag" className="h-auto object-center object-cover " />
             
         </div>
         <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">

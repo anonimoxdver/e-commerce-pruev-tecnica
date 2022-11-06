@@ -1,5 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
-import { InitialData } from '../../../Data/dataProducts';
+
 
 import { prisma } from "../../server/db/client";
 
